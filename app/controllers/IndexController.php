@@ -20,6 +20,10 @@ class IndexController extends ControllerBase
     }
 
 
+    /**
+     * Organiza info de pago y consume servicio de creación de solicitud de pago Tpaga
+     * @access public
+     */
     public function payAction() {
 
         if ($this->request->isPost()){
@@ -27,6 +31,7 @@ class IndexController extends ControllerBase
             $expiresAt = strtotime ( '+1 day' , strtotime ( date('Y-m-d H:i:s') ) ) ;
             $expiresAt = date ( 'c' , $expiresAt );
 
+            //Organiza la data para enviar a Tpaga
             $params = [
                 "cost" => 2000*$this->request->get('quantity'),
                 "purchase_details_url" => $this->config->params->urlReturn,
@@ -45,12 +50,15 @@ class IndexController extends ControllerBase
                 "expires_at" => $expiresAt
             ];
             
+            //Consume servicio
             $dataCreate = $this->curl->curlApiGeneric('payment_requests/create',json_encode($params), 'post');
             
+            //Si la solicitud de pago es exitosa
             if(isset($dataCreate['tpaga_payment_url'])) {
                 header('Location: '.$dataCreate['tpaga_payment_url']);
             }
             else{
+                //Solicitus errada: devuelve al index y muestra un error
                 $this->view->error = isset($dataCreate['error_message'])?$dataCreate['error_message']:
                     "error no identificado";
                 $this->view->render('index','index');
@@ -58,12 +66,17 @@ class IndexController extends ControllerBase
             }
         }
 
+        //Si la funci'on de pago es consumida por post
         $this->view->error = "Funcionalidad solo disponible por post";
         $this->view->render('index','index');
         return;
     }
 
 
+    /**
+     * P]agina de gracias a donce se redirige el usuario despues del pago
+     * @access public
+     */
     public function thanksAction() {
         $this->view->render('index','thanks');
     }
