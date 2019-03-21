@@ -17,5 +17,15 @@ class IndexController extends ControllerBase
         
     }
 
+
+    public function payAction() {
+
+        if ($this->request->isPost()){
+            echo $this->request->get('quantity'); return;
+        }
+
+        echo "error"; return;
+    }
+
 }
 
