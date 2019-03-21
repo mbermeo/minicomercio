@@ -8,5 +8,6 @@ $messages = array(
     "unit_value" => "Valor unidad",
     "quantity" => "Cantidad",
     "pay_submit" => "Pagar con TPaga",
+    "purchase_description" => "Compra de servicios de minimercado"
 
 );

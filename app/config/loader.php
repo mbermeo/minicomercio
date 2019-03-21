@@ -12,4 +12,9 @@ $loader->registerDirs([
         $config->application->formsDir
 ]);
 
+$loader->registerNamespaces([
+    'Phalcon'      	  => realpath(__DIR__ . '/../../vendor/phalcon/incubator/Library/Phalcon/'),
+]);
+
+
 $loader->register();

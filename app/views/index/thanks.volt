@@ -1,0 +1,1 @@
+Gracias por realizar el pago por la plataforma TPaga

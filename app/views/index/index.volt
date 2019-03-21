@@ -6,3 +6,6 @@
 		{{ t._('pay_submit') }}
 	</button>
 {{ end_form() }}
+
+<br /><br /><br />
+{{error}}
