@@ -50,12 +50,42 @@ class OrderController extends ControllerBase
         foreach($orders as $value) {
             //Consume servicio
             $dataValidate = $this->curl->curlApiGeneric('payment_requests/'.$value->token."/info", [] , 'get');
-            print_r($dataValidate);
+            
             if(isset($dataValidate['status']) && $dataValidate['status'] != 'created') {
                 $value->status = $dataValidate['status'];
                 $value->save();
             }
         }
+    }
+
+
+    /**
+     * Lista todas las ordenes registradas para realizar seguimiento
+     *
+     * @access public
+     */    
+    public function listAction () {
+        $orders = Orders::find();
+        $this->view->data = $orders->toArray();
+        $this->view->render('orders','list');
+    }
+
+
+    public function revertAction ($token) {
+        $payRevert = $this->curl->curlApiGeneric('payment_requests/refund', 
+            json_encode(['payment_request_token' => $token]) , 'post');
+
+        if($payRevert['status'] == 'reverted') {
+            $order = Orders::findFirstByToken($token);
+            $order->status = 'reverted';
+            $order->save();
+        }
+
+
+        $this->dispatcher->forward(array(
+            'controller' => 'order',
+            'action'     => 'list'
+        ));
     }
 
 }

@@ -32,11 +32,12 @@ class IndexController extends ControllerBase
             $expiresAt = date ( 'c' , $expiresAt );
 
             //Organiza la data para enviar a Tpaga
+            $uuid =  uniqid();
             $params = [
                 "cost" => 2000*$this->request->get('quantity'),
                 "purchase_details_url" => $this->config->params->urlReturn,
-                "idempotency_token" => uniqid(),
-                "order_id" => 001,
+                "idempotency_token" => $uuid,
+                "order_id" => $uuid,
                 "terminal_id" => "sede_principal",
                 "purchase_description" => $this->view->t->_("purchase_description"),
                 "purchase_items" => [
