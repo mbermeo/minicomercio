@@ -17,7 +17,7 @@ class OrderController extends ControllerBase
      * @param Array $data Informaci'on de la orden
      * @access public
      */
-    public function registerOrder($data) {
+    public function registerOrderAction($data) {
 
         $order = new Orders();
         $order->idempotency_token = $data['idempotency_token'];
@@ -32,6 +32,29 @@ class OrderController extends ControllerBase
             $this->view->error = $order->getMessages()[0]->getMessage();
             $this->view->render('index','index');
             exit;
+        }
+    }
+
+
+    /**
+     * Valida estado de ordenes en TPaga para almacenar cambios
+     *
+     * @access public
+     */    
+    public function validateStatusAction() {
+        $orders = Orders::find([
+            "conditions" => "status = :status:",
+            "bind" => ['status' => 'created']
+        ]);
+
+        foreach($orders as $value) {
+            //Consume servicio
+            $dataValidate = $this->curl->curlApiGeneric('payment_requests/'.$value->token."/info", [] , 'get');
+            print_r($dataValidate);
+            if(isset($dataValidate['status']) && $dataValidate['status'] != 'created') {
+                $value->status = $dataValidate['status'];
+                $value->save();
+            }
         }
     }
 

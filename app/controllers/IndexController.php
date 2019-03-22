@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Orders;
 
 class IndexController extends ControllerBase
 {
@@ -59,7 +58,7 @@ class IndexController extends ControllerBase
 
                 //Almacena la info de la orden en BD
                 $orderController = new OrderController();
-                $orderController->registerOrder($dataCreate);
+                $orderController->registerOrderAction($dataCreate);
                 header('Location: '.$dataCreate['tpaga_payment_url']);
             }
             else{
