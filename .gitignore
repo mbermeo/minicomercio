@@ -2,3 +2,4 @@
 /config/development/
 /app/config/config.php
 /vendor/
+composer.lock
