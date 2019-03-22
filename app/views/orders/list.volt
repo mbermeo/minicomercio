@@ -1,4 +1,9 @@
-<a href="{{ url.getBaseUri() }}session/end">{{ t._('close') }}</a>
+<br /><br /><br />
+
+<body class="landing is-preload">
+    <a href="{{ url.getBaseUri() }}session/end">{{ t._('close') }}</a>
+</body>
+
 
 <table id="bootstrap-table" class="table table-hover" >
     <thead height="40px" >
@@ -18,6 +23,9 @@
             data-sortable="false">
             {{ t._('expires_at') }}
         </th>
+
+
+
         <th data-field="actions" 
             class="td-actions text-center" 
             data-events="operateEvents" 

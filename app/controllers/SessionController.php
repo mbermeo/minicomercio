@@ -9,6 +9,7 @@ class SessionController extends ControllerBase
 	public function initialize()
     {
         parent::initialize();
+        $this->tag->setTitle($this->view->t->_('t_home'));
     }
 
     public function indexAction(){

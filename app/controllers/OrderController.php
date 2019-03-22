@@ -9,6 +9,7 @@ class OrderController extends ControllerBase
     {
         parent::initialize();
         $this->curl = new CurlApi;
+        $this->tag->setTitle($this->view->t->_('t_home'));
     }
 
     /**
