@@ -1,5 +1,8 @@
 {
     "require": {
         "phalcon/incubator": "^2.0"
-    }
+    },
+    "require-dev": {
+	    "phalcon/devtools": "3.*.*@dev"
+	}
 }

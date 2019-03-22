@@ -60,7 +60,8 @@ $di->setShared('view', function () use ($di) {
 /**
  * Database connection is created based in the parameters defined in the configuration file
  */
-$di->setShared('db', function () {
+$di->setShared('db', function () use ($di) {
+
     $config = $di->getConfig();
 
     $class = 'Phalcon\Db\Adapter\Pdo\\' . $config->database->adapter;

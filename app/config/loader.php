@@ -13,7 +13,10 @@ $loader->registerDirs([
 ]);
 
 $loader->registerNamespaces([
+    'App\Controllers' => realpath(__DIR__ . '/../Controllers/'),
+    'App\Models' => realpath(__DIR__ . '/../models/'),
     'Phalcon'      	  => realpath(__DIR__ . '/../../vendor/phalcon/incubator/Library/Phalcon/'),
+    
 ]);
 
 

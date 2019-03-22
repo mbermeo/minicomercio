@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Orders;
 
 class IndexController extends ControllerBase
 {
@@ -52,9 +53,13 @@ class IndexController extends ControllerBase
             
             //Consume servicio
             $dataCreate = $this->curl->curlApiGeneric('payment_requests/create',json_encode($params), 'post');
-            
+
             //Si la solicitud de pago es exitosa
             if(isset($dataCreate['tpaga_payment_url'])) {
+
+                //Almacena la info de la orden en BD
+                $orderController = new OrderController();
+                $orderController->registerOrder($dataCreate);
                 header('Location: '.$dataCreate['tpaga_payment_url']);
             }
             else{
