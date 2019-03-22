@@ -34,7 +34,7 @@ class SessionController extends ControllerBase
             $password = $this->request->get('password');
           
             //Por ahora valido usuario y clave por defecto
-            if($username == 'admin' && $password == 'tpagatest') {
+            if($username == 'admin' && $password == 'admin') {
                 $this->session->set('auth', array(
                     'id' => uniqid(),
                     'name' => 'admin'

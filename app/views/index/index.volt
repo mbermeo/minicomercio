@@ -1,25 +1,14 @@
-<body class="landing is-preload">
-		<div id="">
 
-	<!-- Header -->
-	<header id="header" class="alt">
-		<h1><a href="">Ingresar al Admin</a></h1>
-		<nav id="nav">
-			<ul>
-				<li><a href="{{ url.getBaseUri() }}session/index" class="button"></a></li>
-			</ul>
-		</nav>
-	</header>
 
 	<!-- Banner -->
 	<section id="banner">
 
-
+<a href="{{ url.getBaseUri() }}session/index" class="button">Ingresar al Admin</a>
 	{{ form('method': 'post', 'id':'form-send', 'action': 'Index/pay') }}
 		<h2>{{ t._('service_description') }}</h2>
 		<p>{{ t._('unit_value') }} $2.000</p>
 		<ul class="actions special">
-			<input type="text" name="quantity" width="48">
+			<input type="number" name="quantity" min="1" max="50">
 		</ul>
 		<ul class="actions special">
 			<button type="submit" class="button primary">
@@ -44,5 +33,4 @@
 						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 					</ul>
 				</footer>
-			</div>
-		</div>
+			
