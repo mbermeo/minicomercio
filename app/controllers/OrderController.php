@@ -65,13 +65,27 @@ class OrderController extends ControllerBase
      * @access public
      */    
     public function listAction () {
+        if(!$this->session->get('auth')){
+            $this->response->redirect('session/index');
+        }   
+
         $orders = Orders::find();
         $this->view->data = $orders->toArray();
         $this->view->render('orders','list');
     }
 
 
+    /**
+     * Valida estado de ordenes en TPaga para almacenar cambios
+     *
+     * @access public
+     */   
     public function revertAction ($token) {
+
+        if(!$this->session->get('auth')){
+            $this->response->redirect('session/index');
+        }
+
         $payRevert = $this->curl->curlApiGeneric('payment_requests/refund', 
             json_encode(['payment_request_token' => $token]) , 'post');
 
@@ -81,11 +95,7 @@ class OrderController extends ControllerBase
             $order->save();
         }
 
-
-        $this->dispatcher->forward(array(
-            'controller' => 'order',
-            'action'     => 'list'
-        ));
+        $this->response->redirect('order/list');
     }
 
 }

@@ -4,6 +4,7 @@ use Phalcon\Mvc\View;
 use Phalcon\Mvc\View\Engine\Php as PhpEngine;
 use Phalcon\Mvc\Url as UrlResolver;
 use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
+use Phalcon\Session\Adapter\Files as SessionAdapter;
 
 
 /**
@@ -80,4 +81,14 @@ $di->setShared('db', function () use ($di) {
     $connection = new $class($params);
 
     return $connection;
+});
+
+
+/**
+ * Start the session the first time some component request the session service
+ */
+$di->setShared('session', function () {
+    $session = new SessionAdapter();
+    $session->start();
+    return $session;
 });

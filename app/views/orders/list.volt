@@ -1,3 +1,5 @@
+<a href="{{ url.getBaseUri() }}session/end">{{ t._('close') }}</a>
+
 <table id="bootstrap-table" class="table table-hover" >
     <thead height="40px" >
         <th data-field="name" 
